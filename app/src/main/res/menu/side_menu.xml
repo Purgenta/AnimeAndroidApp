@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_baseline_home"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/trendingAnime"
+            android:icon="@drawable/ic_trending_anime"
+            android:title="@string/trending_anime" />
+        <item
+            android:id="@+id/searchAnime"
+            android:icon="@drawable/ic_baseline_search_icon"
+            android:title="@string/search_anime" />
+        <item
+            android:id="@+id/currentlyAiring"
+            android:icon="@drawable/ic_baseline_currently_airing"
+            android:title="@string/currently_airing" />
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_baseline_profile"
+            android:title="@string/profile" />
+        <item
+            android:id="@+id/recommendations"
+            android:icon="@drawable/ic_baseline_recommendations"
+            android:title="@string/recommendations" />
+    </group>
+</menu>
