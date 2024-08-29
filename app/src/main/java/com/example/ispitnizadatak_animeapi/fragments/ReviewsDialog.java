@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +34,7 @@ public class ReviewsDialog extends BottomSheetDialogFragment {
     private final int animeId;
     private RecyclerReviewAdapter adapter;
     private RecyclerView viewHolder;
+    private TextView noReviews;
 
     public ReviewsDialog(IAnimeDetailsApi api, int animeId) {
         this.api = api;
@@ -52,6 +53,7 @@ public class ReviewsDialog extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewHolder = view.findViewById(R.id.reviewResults);
+        noReviews = view.findViewById(R.id.noReviewsLabel);
         viewHolder.setHasFixedSize(true);
         adapter = new RecyclerReviewAdapter(getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -73,10 +75,10 @@ public class ReviewsDialog extends BottomSheetDialogFragment {
                 }
             }
         });
-        View bottomSheet = this.getView().findViewById(R.id.standard_bottom_sheet);
+        View bottomSheet = this.requireView().findViewById(R.id.standard_bottom_sheet);
         BottomSheetBehavior behavior = BottomSheetBehavior.from(bottomSheet);
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels;
         int maxHeight = (int) (screenHeight * 0.7);
         // we set initial peek to be at max and maxHeight to be 70% of the screen from the bottom to the top
@@ -84,14 +86,11 @@ public class ReviewsDialog extends BottomSheetDialogFragment {
         behavior.setPeekHeight(maxHeight);
         behavior.setHideable(false);
 
+
         viewHolder.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                if (dy != 0) {
-                    behavior.setDraggable(false);
-                } else {
-                    behavior.setDraggable(true);
-                }
+                behavior.setDraggable(dy == 0);
             }
         });
 
@@ -112,7 +111,11 @@ public class ReviewsDialog extends BottomSheetDialogFragment {
         IReviewsApiCallback callback = new IReviewsApiCallback() {
             @Override
             public void onSuccess(ArrayList<Review> reviews, boolean hasNextPage) {
-                if (reviews.isEmpty()) ReviewsDialog.this.hasNextPage = false;
+                if (reviews.isEmpty()) {
+                    ReviewsDialog.this.hasNextPage = false;
+                    if (page == 1) noReviews.setVisibility(View.VISIBLE);
+                    return;
+                }
                 adapter.setSearchResults(reviews);
                 adapter.notifyDataSetChanged();
                 isLoading = false;
@@ -131,6 +134,5 @@ public class ReviewsDialog extends BottomSheetDialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-
     }
 }

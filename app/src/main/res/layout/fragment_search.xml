@@ -26,7 +26,7 @@
             android:id="@+id/editTextAnimeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
+            android:layout_marginTop="28dp"
             android:ems="10"
             android:hint="@string/enter_anime_title"
             android:importantForAutofill="no"
@@ -56,7 +56,7 @@
             android:id="@+id/spinnerRating"
             android:layout_width="260dp"
             android:layout_height="48dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="#9C9696"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -68,7 +68,7 @@
             android:id="@+id/labelOrderBy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:labelFor="@id/spinnerOrderBy"
             android:padding="10dp"
@@ -82,21 +82,42 @@
             android:id="@+id/spinnerOrderBy"
             android:layout_width="257dp"
             android:layout_height="50dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/labelOrderBy"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonSeach"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="164dp"
             android:text="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinnerOrderBy" />
+
+        <TextView
+            android:id="@+id/labelGenres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/choose_genre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerOrderBy" />
+
+        <Spinner
+            android:id="@+id/spinnerGenres"
+            android:layout_width="247dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelGenres" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

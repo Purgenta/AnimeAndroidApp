@@ -2,6 +2,7 @@ package com.example.ispitnizadatak_animeapi.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.ispitnizadatak_animeapi.R;
+import com.example.ispitnizadatak_animeapi.dtos.Genre;
 import com.example.ispitnizadatak_animeapi.interfaces.ISearchFragment;
+import com.example.ispitnizadatak_animeapi.interfaces.api.IAnimeGenresCallback;
+import com.example.ispitnizadatak_animeapi.interfaces.api.IAnimeOptionsApi;
 import com.example.ispitnizadatak_animeapi.models.SearchFormModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Search extends Fragment {
 
@@ -30,8 +35,13 @@ public class Search extends Fragment {
     private Button search;
     private EditText animeTitle;
     private ISearchFragment activity;
+    private final IAnimeOptionsApi api;
+    private ArrayList<Genre> genres;
+    private Spinner genresDropdown;
 
-    public Search() {
+
+    public Search(IAnimeOptionsApi api) {
+        this.api = api;
     }
 
     @Override
@@ -65,6 +75,17 @@ public class Search extends Fragment {
                              Bundle savedInstanceState) {
         View inf = inflater.inflate(R.layout.fragment_search, container, false);
         initComponents(inf);
+        api.getGenres(new IAnimeGenresCallback() {
+            @Override
+            public void onSuccess(ArrayList<Genre> genres) {
+                Search.this.genres = genres;
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.d("Error getting genre's", Objects.requireNonNull(e.getMessage()));
+            }
+        });
         search.setOnClickListener(view -> {
             String order = orderBy.getSelectedItem().toString().toLowerCase();
             String ageRating = rating.getSelectedItem().toString();
@@ -102,6 +123,7 @@ public class Search extends Fragment {
             }
             this.activity.searchAnime(new SearchFormModel(order, transformedAgeRating, title));
         });
+
         return inf;
     }
 
@@ -111,7 +133,7 @@ public class Search extends Fragment {
         search = inf.findViewById(R.id.buttonSeach);
         animeTitle = inf.findViewById(R.id.editTextAnimeTitle);
         ArrayList<String> order = new ArrayList<>(Arrays.asList("Score", "Popularity", "Rank"));
-        ArrayAdapter<String> orderAdapter = new ArrayAdapter<>(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, order);
+        ArrayAdapter<String> orderAdapter = new ArrayAdapter<>(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, order);
         orderBy.setAdapter(orderAdapter);
         ArrayList<String> ratings = new ArrayList<>(Arrays.asList("No specific age group", "G - All Ages",
                 "PG - Children",
@@ -119,7 +141,7 @@ public class Search extends Fragment {
                 "R - 17+ (violence & profanity)",
                 "R+ - Mild Nudity",
                 "Rx - Hentai"));
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, ratings);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, ratings);
         rating.setAdapter(adapter);
     }
 

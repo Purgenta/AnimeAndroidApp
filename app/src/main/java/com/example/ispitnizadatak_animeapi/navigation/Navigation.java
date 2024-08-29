@@ -10,7 +10,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.ispitnizadatak_animeapi.R;
+import com.example.ispitnizadatak_animeapi.api.AnimeOptionsApi;
+import com.example.ispitnizadatak_animeapi.api.DetailedAnimeApi;
 import com.example.ispitnizadatak_animeapi.api.RecommendationsApi;
+import com.example.ispitnizadatak_animeapi.interfaces.api.IAnimeDetailsApi;
+import com.example.ispitnizadatak_animeapi.interfaces.api.IAnimeOptionsApi;
 import com.example.ispitnizadatak_animeapi.interfaces.api.ISearchAnimeApi;
 import com.example.ispitnizadatak_animeapi.api.SearchAnimeApi;
 import com.example.ispitnizadatak_animeapi.fragments.Home;
@@ -54,8 +58,9 @@ public class Navigation {
                     break;
                 }
                 case R.id.searchAnime: {
+                    IAnimeOptionsApi api = new AnimeOptionsApi();
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new Search()).setReorderingAllowed(true).addToBackStack(null).commit();
+                            new Search(api)).setReorderingAllowed(true).addToBackStack(null).commit();
                     break;
                 }
                 case R.id.currentlyAiring: {
@@ -68,8 +73,9 @@ public class Navigation {
                     break;
                 }
                 case R.id.profile: {
+                    IAnimeDetailsApi api = new DetailedAnimeApi();
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new Profile()).setReorderingAllowed(true).addToBackStack(null).commit();
+                            new Profile(api)).setReorderingAllowed(true).addToBackStack(null).commit();
                     break;
                 }
                 case R.id.recommendations: {

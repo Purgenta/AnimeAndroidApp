@@ -16,4 +16,6 @@
     <color name="teal_700">#00796B</color>
     <color name="icon_fill_light">#000000</color>
     <color name="icon_fill_dark">#FFFFFF</color>
+    <color name="button_background_color">#FF640A</color>
+    <color name="button_text_color">#FFFFFF</color>
 </resources>

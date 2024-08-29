@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import com.example.ispitnizadatak_animeapi.R;
+import com.example.ispitnizadatak_animeapi.api.AnimeOptionsApi;
 import com.example.ispitnizadatak_animeapi.api.DetailedAnimeApi;
 import com.example.ispitnizadatak_animeapi.api.SearchAnimeApi;
 import com.example.ispitnizadatak_animeapi.fragments.DetailedAnime;
@@ -16,6 +17,7 @@ import com.example.ispitnizadatak_animeapi.interfaces.IDetails;
 import com.example.ispitnizadatak_animeapi.fragments.Search;
 import com.example.ispitnizadatak_animeapi.fragments.SearchResult;
 import com.example.ispitnizadatak_animeapi.interfaces.ISearchFragment;
+import com.example.ispitnizadatak_animeapi.interfaces.api.IAnimeOptionsApi;
 import com.example.ispitnizadatak_animeapi.models.SearchAnimeModel;
 import com.example.ispitnizadatak_animeapi.models.SearchFormModel;
 import com.example.ispitnizadatak_animeapi.navigation.Navigation;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements ISearchFragment, 
 
     @Override
     public void beginSearch() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Search()).addToBackStack(null).commit();
+        IAnimeOptionsApi api = new AnimeOptionsApi();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Search(api)).addToBackStack(null).commit();
     }
 }

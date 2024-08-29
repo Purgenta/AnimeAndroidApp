@@ -58,4 +58,8 @@
     <string name="dummyUsername">Adzand312</string>
     <string name="dummyReview">Click to see anime reviews</string>
     <string name="dummyPlaceholderProfile">User profile pic\n</string>
+    <string name="noReviews">No reviews for this anime</string>
+    <string name="favouriteAnimePicture">Favourite anime picture</string>
+    <string name="choose_genre">Choose Genre</string>
+
 </resources>

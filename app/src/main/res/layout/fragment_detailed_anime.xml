@@ -182,14 +182,12 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonAddFavourite"
                 android:layout_width="289dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@color/orange_400"
                 android:text="@string/set_as_favourite"
-                android:textColorLink="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
@@ -287,7 +285,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="@string/synopsis"
-                    android:textAlignment="textStart"
+                    android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
