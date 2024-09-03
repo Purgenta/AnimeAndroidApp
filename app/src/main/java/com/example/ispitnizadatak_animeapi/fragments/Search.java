@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,8 @@ import com.example.ispitnizadatak_animeapi.interfaces.ISearchFragment;
 import com.example.ispitnizadatak_animeapi.interfaces.api.IAnimeGenresCallback;
 import com.example.ispitnizadatak_animeapi.interfaces.api.IAnimeOptionsApi;
 import com.example.ispitnizadatak_animeapi.models.SearchFormModel;
+import com.example.ispitnizadatak_animeapi.ui.dropdown.DropdownAdapter;
+import com.example.ispitnizadatak_animeapi.ui.dropdown.DropdownItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,6 +41,7 @@ public class Search extends Fragment {
     private final IAnimeOptionsApi api;
     private ArrayList<Genre> genres;
     private Spinner genresDropdown;
+    private String selectedGenre;
 
 
     public Search(IAnimeOptionsApi api) {
@@ -78,7 +82,25 @@ public class Search extends Fragment {
         api.getGenres(new IAnimeGenresCallback() {
             @Override
             public void onSuccess(ArrayList<Genre> genres) {
-                Search.this.genres = genres;
+                ArrayList<DropdownItem> dropdownItems = new ArrayList<>();
+                for (Genre genre : genres) {
+                    dropdownItems.add(new DropdownItem(genre.getName(), Integer.toString(genre.getId())));
+                }
+                DropdownAdapter dropdownAdapter = new DropdownAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, dropdownItems);
+                genresDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        DropdownItem selectedItem = (DropdownItem) parentView.getItemAtPosition(position);
+                        selectedGenre = selectedItem.getValue();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        selectedGenre = "";
+                    }
+                });
+
+                genresDropdown.setAdapter(dropdownAdapter);
             }
 
             @Override
@@ -121,7 +143,7 @@ public class Search extends Fragment {
                     }
                 }
             }
-            this.activity.searchAnime(new SearchFormModel(order, transformedAgeRating, title));
+            this.activity.searchAnime(new SearchFormModel(order, transformedAgeRating, title, selectedGenre));
         });
 
         return inf;
@@ -132,6 +154,7 @@ public class Search extends Fragment {
         rating = inf.findViewById(R.id.spinnerRating);
         search = inf.findViewById(R.id.buttonSeach);
         animeTitle = inf.findViewById(R.id.editTextAnimeTitle);
+        genresDropdown = inf.findViewById(R.id.spinnerGenres);
         ArrayList<String> order = new ArrayList<>(Arrays.asList("Score", "Popularity", "Rank"));
         ArrayAdapter<String> orderAdapter = new ArrayAdapter<>(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, order);
         orderBy.setAdapter(orderAdapter);

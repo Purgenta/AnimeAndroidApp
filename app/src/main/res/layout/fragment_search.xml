@@ -119,5 +119,6 @@
             app:layout_constraintHorizontal_bias="0.518"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/labelGenres" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -52,11 +52,6 @@ public class Profile extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        try {
-            throw new Exception("Erorr");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -85,7 +80,7 @@ public class Profile extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponents();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MainActivitySharedPreferences", 0);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MainActivitySharedPreferences", 0);
         username.setText(sharedPreferences.getString("username", ""));
         email.setText(sharedPreferences.getString("email", ""));
         int animeId = sharedPreferences.getInt("favouriteAnime", 0);

@@ -61,5 +61,6 @@
     <string name="noReviews">No reviews for this anime</string>
     <string name="favouriteAnimePicture">Favourite anime picture</string>
     <string name="choose_genre">Choose Genre</string>
+    <string name="no_anime_trailer_available">No anime trailer available</string>
 
 </resources>

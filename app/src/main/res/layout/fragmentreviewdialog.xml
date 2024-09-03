@@ -13,7 +13,6 @@
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <!-- Drag handle for accessibility -->
         <com.google.android.material.bottomsheet.BottomSheetDragHandleView
             android:id="@+id/drag_handle"
             android:layout_width="match_parent"
@@ -28,23 +27,19 @@
 
         <TextView
             android:id="@+id/noReviewsLabel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_gravity="center"
             android:text="@string/noReviews"
-            android:visibility="invisible" />
+            android:visibility="gone"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/reviewsSwiper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@id/drag_handle"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            android:layout_marginTop="48dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/reviewResults"
@@ -57,7 +52,6 @@
                 android:paddingRight="5dp"
                 android:paddingBottom="10dp" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

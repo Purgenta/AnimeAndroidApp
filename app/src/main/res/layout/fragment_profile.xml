@@ -37,18 +37,6 @@
             app:layout_constraintTop_toBottomOf="@+id/labelProfileOverview"
             tools:ignore="ImageContrastCheck" />
 
-        <TextView
-            android:id="@+id/labelFavouriteAnime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/favourite_anime"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
 
         <TextView
             android:id="@+id/profileusernameLabel"
@@ -103,22 +91,20 @@
             android:id="@+id/labelNoFavouriteAnime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelFavouriteAnime" />
+            app:layout_constraintTop_toTopOf="@+id/favouriteAnimeDisplay" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/favouriteAnimeDisplay"
             android:layout_width="417dp"
             android:layout_height="375dp"
-            android:layout_marginTop="16dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelFavouriteAnime">
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
 
             <TextView
                 android:id="@+id/profileOverviewFavouriteAnime"
@@ -140,7 +126,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:background="@color/orange_400"
                 android:text="@string/remove_favourite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

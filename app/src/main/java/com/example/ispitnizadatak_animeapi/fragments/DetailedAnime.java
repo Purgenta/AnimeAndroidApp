@@ -7,8 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,19 +22,14 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ispitnizadatak_animeapi.R;
 import com.example.ispitnizadatak_animeapi.dtos.AnimeDetailedPost;
-import com.example.ispitnizadatak_animeapi.dtos.Review;
 import com.example.ispitnizadatak_animeapi.interfaces.api.IAnimeDetailsApi;
 import com.example.ispitnizadatak_animeapi.interfaces.api.IAnimeDetailsApiCallback;
-import com.example.ispitnizadatak_animeapi.interfaces.api.IReviewsApiCallback;
 import com.example.ispitnizadatak_animeapi.recyclerview.RecyclerReviewAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class DetailedAnime extends Fragment {
@@ -98,12 +96,27 @@ public class DetailedAnime extends Fragment {
 
         WebSettings webSettings = animeTrailer.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        if (anime.getEmbedUrl() == null) {
+            handleTrailerLoadError();
+            return;
+        }
         String html = "<html><body style=\"display: flex; justify-content: center; align-items: center; margin: 0;\">" +
                 "<iframe width=\"100%\" height=\"100%\" " +
                 "src=\"" + anime.getEmbedUrl() + "\"" +
                 " frameborder=\"0\" allowfullscreen></iframe>" +
                 "</body></html>";
+        animeTrailer.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                handleTrailerLoadError();
+            }
 
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+            }
+        });
         animeTrailer.loadData(html, "text/html", "utf-8");
     }
 
@@ -187,4 +200,10 @@ public class DetailedAnime extends Fragment {
         });
     }
 
+    private void handleTrailerLoadError() {
+        TextView trailerErrorMessage = view.findViewById(R.id.trailerErrorMessage);
+        animeTrailer.setVisibility(View.INVISIBLE);
+        trailerErrorMessage.setVisibility(View.VISIBLE);
+
+    }
 }

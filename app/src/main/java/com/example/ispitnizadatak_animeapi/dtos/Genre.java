@@ -21,7 +21,7 @@ public class Genre {
     }
 
     public Genre(String jsonString) {
-        this.id = JsonPath.read(jsonString, "$.id");
+        this.id = JsonPath.read(jsonString, "$.mal_id");
         this.name = JsonPath.read(jsonString, "$.name");
     }
 

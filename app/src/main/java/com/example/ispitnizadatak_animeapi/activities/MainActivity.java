@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements ISearchFragment, 
     @Override
     public void searchAnime(SearchFormModel model) {
         SearchAnimeApi api = new SearchAnimeApi();
-        SearchAnimeModel searchAnimeModel = new SearchAnimeModel.Builder().page(1).limit(10).order(model.getOrder()).title(model.getTitle()).rating(model.getAgeRating()).build();
+        SearchAnimeModel searchAnimeModel = new SearchAnimeModel.Builder().page(1).limit(10).order(model.getOrder()).title(model.getTitle()).rating(model.getAgeRating()).genre(model.getGenre()).build();
         SearchResult searchResultFragment = new SearchResult(api, searchAnimeModel);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, searchResultFragment).addToBackStack(null).commit();
     }
